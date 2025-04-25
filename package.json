@@ -1,0 +1,57 @@
+{
+  "name": "balans",
+  "version": "0.0.1",
+  "description": "Balans",
+  "main": "index.ts",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "references": [
+    {
+      "path": "packages/common"
+    }
+  ],
+  "scripts": {
+    "postinstall": "yarn build-common",
+    "start-nope": "concurrently \"yarn server-prod\" \"yarn client-prod\"",
+    "start": "pnpm -F server start:prod",
+    "server-prod": "pnpm -F server start:prod",
+    "client-prod": "pnpm -F client start",
+    "server": "pnpm -F server start:dev",
+    "client": "pnpm -F client dev",
+    "client:host": "pnpm -F client start:host",
+    "typecheck": "concurrently \"yarn typecheck-server\" \"yarn typecheck-client\"",
+    "typecheck-server": "pnpm -F server typecheck",
+    "typecheck-client": "pnpm -F client typecheck",
+    "dev": "concurrently \"yarn server\" \"yarn client\"",
+    "dev:host": "concurrently \"yarn server\" \"yarn client:host\"",
+    "format": "prettier --write \"./packages/client/src/**/*.{ts,tsx}\" \"./packages/server/src/**/*.ts\" \"./packages/common/src/**/*.ts\"",
+    "build-common": "pnpm -F @second/common build",
+    "prebuild": "yarn build-common",
+    "build-server": "pnpm -F server build",
+    "build-client": "pnpm -F client build",
+    "build": "yarn build-server && yarn build-client",
+    "postbuild": "rimraf ./packages/server/dist/public/* && mkdirp ./packages/server/dist/public && cp -r ./packages/client/dist/* ./packages/server/dist/public",
+    "generate": "node generate.js",
+    "test": "cd packages/server && yarn test"
+  },
+  "repository": "https://github.com/fwestling/second-stack.git",
+  "author": "Fred Westling <fred@westling.io>",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "axios": "^1.7.7",
+    "concurrently": "^9.0.1",
+    "mkdirp": "^3.0.1",
+    "nodemon": "^3.1.7",
+    "openapi-typescript-codegen": "^0.29.0",
+    "prettier": "^3.3.3",
+    "rimraf": "^6.0.1",
+    "tsc": "^2.0.4",
+    "typescript": "^5.6.2"
+  },
+  "devDependencies": {
+    "@orval/core": "^7.1.1",
+    "orval": "^7.1.1"
+  }
+}

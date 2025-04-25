@@ -1,0 +1,14 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "emitDecoratorMetadata": true,
+    "module": "CommonJS",
+    "outDir": "dist",
+    "paths": {
+      "~/*": ["src/*"]
+    },
+    "strictPropertyInitialization": false
+  },
+  "exclude": ["**/node_modules/*", "**/dist/*", "scripts/*", "**/__generated/*"]
+}

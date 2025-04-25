@@ -1,0 +1,63 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "typescript",
+			"tsconfig": "client/tsconfig.json",
+			"option": "watch",
+			"problemMatcher": [
+				"$tsc-watch"
+			],
+			"group": "build",
+			"label": "TSC watch client"
+		},
+		{
+			"type": "typescript",
+			"tsconfig": "server/tsconfig.json",
+			"option": "watch",
+			"problemMatcher": [
+				"$tsc-watch"
+			],
+			"group": "build",
+			"label": "TSC watch server"
+		},
+		{
+			"type": "npm",
+			"script": "server",
+			"label": "NPM start server",
+			"detail": "server",
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": false,
+				"panel": "shared",
+				"showReuseMessage": true,
+				"clear": false,
+				"group": "run"
+			}
+		},
+		{
+			"type": "npm",
+			"script": "client",
+			"label": "NPM start client",
+			"detail": "client",
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": false,
+				"panel": "shared",
+				"showReuseMessage": true,
+				"clear": false,
+				"group": "run"
+			}
+		},
+		{
+			"label": "Full Stack",
+			"dependsOn": [
+				"NPM start server",
+				"NPM start client"
+			],
+			"problemMatcher": []
+		}
+	]
+}

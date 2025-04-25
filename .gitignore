@@ -1,0 +1,15 @@
+node_modules
+.env
+.DS_Store
+
+*/dist/
+./packages/server/dist/
+./packages/common/build/
+*/build/
+*/common/dist/
+./packages/common/dist/*
+./packages/common/dist
+
+**/tsconfig.tsbuildinfo
+
+**/vite.config.ts.timestamp*

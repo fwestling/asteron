@@ -1,0 +1,4 @@
+node_modules/
+_frontend/
+build/
+dist/
