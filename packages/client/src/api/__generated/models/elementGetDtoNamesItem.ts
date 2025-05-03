@@ -6,7 +6,4 @@
  * OpenAPI spec version: 1.0
  */
 
-export interface GraphGetDto {
-  day: string;
-  value: number;
-}
+export type ElementGetDtoNamesItem = { [key: string]: unknown };

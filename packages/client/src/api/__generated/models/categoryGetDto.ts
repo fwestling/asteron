@@ -6,7 +6,9 @@
  * OpenAPI spec version: 1.0
  */
 
-export interface GraphGetDto {
-  day: string;
-  value: number;
+export interface CategoryGetDto {
+  colour: string;
+  icon: string;
+  id: string;
+  name: string;
 }

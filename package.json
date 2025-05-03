@@ -1,7 +1,7 @@
 {
-  "name": "balans",
+  "name": "asteron",
   "version": "0.0.1",
-  "description": "Balans",
+  "description": "Asteron",
   "main": "index.ts",
   "private": true,
   "workspaces": [

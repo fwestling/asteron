@@ -1,6 +1,6 @@
-import { UserRole, FirebaseProviders, UserRolesArray } from '@second/common';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document, Types } from 'mongoose';
+import { FirebaseProviders, UserRole, UserRolesArray } from '@second/common';
+import { Document } from 'mongoose';
 
 export type UserDocument = User & Document;
 
@@ -10,8 +10,6 @@ export class User {
   locked: boolean;
   @Prop({ type: Boolean, default: false })
   deleted: boolean;
-  @Prop({ type: Types.ObjectId, required: false })
-  familyId?: Types.ObjectId;
   @Prop()
   givenName: string;
   @Prop()
@@ -35,3 +33,7 @@ export class User {
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
+
+// Emails should be unique
+UserSchema.index({ email: 1 }, { unique: true });
+UserSchema.index({ firebaseId: 1 }, { unique: true });

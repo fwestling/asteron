@@ -1,21 +1,20 @@
-import { UserRole } from '@second/common';
 import {
   Injectable,
   InternalServerErrorException,
   UnauthorizedException,
 } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
+import { UserRole } from '@second/common';
 import * as firebase from 'firebase-admin';
-import { ObjectId, Types } from 'mongoose';
+import { Types } from 'mongoose';
 import { ExtractJwt, Strategy } from 'passport-firebase-jwt';
 import { AppConfigurationService } from '~/configuration/app-configuration.service';
-import { AuthService } from './auth.service';
 import { FirebaseService } from '../firebase/firebase.service';
+import { AuthService } from './auth.service';
 
 export type RequestUser = {
   _id: Types.ObjectId;
   roles: UserRole[];
-  familyId?: Types.ObjectId;
 };
 
 @Injectable()
@@ -54,7 +53,6 @@ export class FirebaseAuthStrategy extends PassportStrategy(
       return {
         _id: user._id as Types.ObjectId,
         roles: user.roles,
-        familyId: user.familyId,
       };
     } catch (error: any) {
       console.error(error);

@@ -1,20 +1,16 @@
 import {
-  UserRole,
-  FirebaseProvider,
-  displayNameToSplit,
-  UserRoles,
-} from '@second/common';
-import {
   BadRequestException,
   Injectable,
   InternalServerErrorException,
   UnauthorizedException,
 } from '@nestjs/common';
+import {
+  displayNameToSplit,
+  FirebaseProvider,
+  UserRoles,
+} from '@second/common';
 import { DecodedIdToken } from 'firebase-admin/lib/auth/token-verifier';
-import toObjectId from '~/common/toObjectId';
 import { UsersService } from '~/modules/users/users.service';
-import { Request } from 'express';
-import { Types } from 'mongoose';
 import { UserDocument } from '../users/user.schema';
 
 export interface IAuthService {
@@ -27,7 +23,7 @@ export class AuthService implements IAuthService {
 
   async validateUser(
     decodedToken: DecodedIdToken,
-  ): Promise<Pick<UserDocument, '_id' | 'roles' | 'familyId'>> {
+  ): Promise<Pick<UserDocument, '_id' | 'roles'>> {
     const user = await this.usersService.findOneByFirebaseId(decodedToken.uid);
     console.log('User', user);
     if (user) {
@@ -60,7 +56,7 @@ export class AuthService implements IAuthService {
         await user.save();
       }
 
-      return { _id: user._id, roles: user.roles, familyId: user.familyId };
+      return { _id: user._id, roles: user.roles };
     } else if (decodedToken.email) {
       // Check if this user exists without firebase (e.g. added as a coach)
       const candidate = await this.usersService.findOneByEmail(
@@ -87,7 +83,6 @@ export class AuthService implements IAuthService {
         return {
           _id: newUser._id,
           roles: newUser.roles,
-          familyId: newUser.familyId,
         };
       } else {
         // user does exist, so add this firebase data to it.
@@ -114,7 +109,6 @@ export class AuthService implements IAuthService {
       return {
         _id: candidate._id,
         roles: candidate.roles,
-        familyId: candidate.familyId,
       };
     }
     throw new UnauthorizedException();

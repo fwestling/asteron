@@ -8,11 +8,10 @@ import { InjectModel } from '@nestjs/mongoose';
 import { FirebaseProvider, UserRole } from '@second/common';
 import { Model, Types } from 'mongoose';
 import { AppConfigurationService } from '~/configuration/app-configuration.service';
-import { User, UserDocument } from './user.schema';
 import UserCreateDto from '~/data/dtos/UserCreateDto.dto';
 import UserUpdateDto from '~/data/dtos/UserUpdateDto.dto';
-import { FirebaseService } from '../firebase/firebase.service';
 import { StorageService } from '../storage/storage.service';
+import { User, UserDocument } from './user.schema';
 
 export interface IUsersService {
   findAll: () => Promise<UserDocument[]>;
@@ -126,7 +125,7 @@ export class UsersService implements IUsersService {
 
   update = async (
     _id: Types.ObjectId,
-    dto: UserUpdateDto & { emailVerified?: boolean; familyId?: Types.ObjectId },
+    dto: UserUpdateDto & { emailVerified?: boolean },
   ): Promise<UserDocument | null> =>
     this.userModel.findByIdAndUpdate(_id, { $set: dto }, { new: true });
 

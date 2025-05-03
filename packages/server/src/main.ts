@@ -9,8 +9,8 @@ async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
   const config = new DocumentBuilder()
-    .setTitle('Balans')
-    .setDescription('Family balance sheet manager')
+    .setTitle('Asteron')
+    .setDescription('Novel writing tool')
     .setVersion('1.0')
     .addBearerAuth()
     .build();
